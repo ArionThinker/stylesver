@@ -1,1 +1,26 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+  <name>And | Stylesver</name>
+  <code>and_stylesver</code>
+  <version>1.0.20230512</version>
+  <author>And</author>
+  <link>https://and.co.ua</link>
+  <file path="catalog/controller/common/header.php">
+    <operation>
+      <search><![CDATA[$data['styles'] = $this->document->getStyles();]]></search>
+      <add position="replace"><![CDATA[
+        $styles = $this->document->getStyles();
+        
+        $data['styles'] = array();
+        
+        foreach ($styles as $style) {
+            $data['styles'][] = array(
+                'href'  => $style['href'] . '?ver=' . date('Ymd' ,filemtime(DIR_APPLICATION . '../' . $style['href'])),
+                'rel'   => $style['rel'],
+                'media' => $style['media']
+            ); 
+        }
+      ]]></add>
+    </operation>
+  </file>
+</modification>
